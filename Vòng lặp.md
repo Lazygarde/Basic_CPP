@@ -1,0 +1,110 @@
+# Vòng lặp `for`
+- Khi vào vòng lặp `for`, đầu tiên nó khởi tạo giá trị ban đầu, kiểm tra điều kiện và thực hiện khối lệnh. Và sau đó thực hiện bước nhảy và tiếp tục kiểm tra điều kiện. Nếu đúng thì tiếp tục thực hiện khối lệnh và bước nhảy. Nếu sai thì sẽ dừng lại.
+- Cú pháp:
+  ```cpp
+  for(<Giá trị ban đầu>; <Điều kiện>; <Bước nhảy>){
+
+  }
+  ```
+- VD:
+  ```cpp
+  for (int i = 2; i <= 5; i++)
+  {
+       cout << i << " ";
+  }
+  ```
+  Output: 
+  ```
+  2 3 4 5
+  ```
+- VD:
+  ```cpp
+  int i = 1;
+  for (; i <= 5;)
+  {
+       cout << i << " ";
+       i += 2;
+  }
+  ```
+  Output: 
+  ```
+  1 3 5
+  ```
+  -> Một vòng lặp có thể không cần đủ 3 thành phần trong ngoặc nhưng cần có đủ 2 dấu `;` và đặt thành phần mình cần vào đúng chỗ.
+# Vòng lặp `do while`
+- Vòng lặP `do while` thực hiện khối lệnh cho đến khi nào điều kiện sai.
+- Cú pháp:
+  ```cpp
+  do {
+
+  }
+  while(<điều kiện>);
+  ```
+- VD:
+  ```cpp
+  int i = 1;
+  do {
+       cout << i << " ";
+       i += 1;
+  } while (i < 5);
+  ```
+  Output:
+  ```
+  1 2 3 4
+  ```
+# Vòng lặp `while`
+- Vòng lặP `while` kiểm tra điều kiện và thực hiện khối lệnh, lặp lại cho đến khi nào điều kiện không còn đúng.
+- Cú pháp:
+  ```cpp
+  while (<điều kiện>) {
+
+  }
+  ```
+- VD:
+  ```cpp
+  int i = 1;
+  while (i < 5) {
+       cout << i << " ";
+       i += 2;
+  }
+  ```
+  Output:
+  ```
+  1 3
+  ```
+# So sánh `do while` và `while`
+Vòng lặp `do while` sẽ thực hiện khối lệnh trước rồi mới kiểm tra điều kiện, khác với vòng lặp `while` là kiểm tra điều kiện trước. Do đó vòng lặp `do while` luôn thực hiện khối lệnh ít nhất 1 lần, còn vòng lặp `while` có thể không thực hiện nếu điều kiện sai ngay từ đầu.
+# `break`
+`break` dùng để thoát khỏi vòng lặp ngay lập tức khi cần.
+# `continue`
+`continue` dùng để bỏ qua những câu lệnh sau nó và tiếp tục thực hiện vòng lặp.
+# So sánh `break` và `continue`
+Ví dụ có một chương trình sau:
+```cpp
+for (int i = 1; i <= 10; i++)
+{
+    if (i == 4)
+        break;
+    cout << i << " ";
+}
+```
+Output: 
+```
+1 2 3
+```
+Giải thích: Vòng lặp thực hiện từ 1 đến 10 và bước nhảy là 1. Sau khi chạy từ 1 đến 3 và in ra `1 2 3`, đến `i = 4` thì gặp điều kiện `i == 4` là đúng nên sẽ `break` ra khỏi vòng `for` ngay lập tức.
+
+Nếu đổi `break` và `continue` ta sẽ được chương trình như sau:
+```cpp
+for (int i = 1; i <= 10; i++)
+{
+    if (i == 4)
+        continue;
+    cout << i << " ";
+}
+```
+Output: 
+```
+1 2 3 5 6 7 8 9 10
+```
+Khác với `break`, khi chương trình gặp `continue`, nó chỉ bỏ qua những câu lệnh sau nó trong vòng lặp thôi và vẫn tiếp tục thực hiện vòng lặp. Như khi điều kiện `i == 4` đúng thì nó chỉ bỏ qua việc in `i = 4` và vẫn tiếp tục thực hiện từ `i = 5`.
