@@ -8,8 +8,18 @@
   Cách tiếp cận QHĐ:
   - Số Fibonacci thứ n được tính bằng tổng của 2 số Fibonacci thứ n-1 và n-2
   - Vì vậy ta có mảng lưu kết quả là f[], f[i] = f[i-1] + f[i-2]
-
-  ![image](https://user-images.githubusercontent.com/84316258/202840254-ea4e845f-b569-476e-9956-6a2ad33f3a87.png)
+  - Code:
+  ```cpp
+    int n;
+    cin >> n;
+    int a[n + 1];
+    a[0] = 0;
+    a[1] = 1;
+    for (int i = 2; i <= n;i++) {
+      a[i] = a[i - 1] + a[i - 2];
+    }
+    cout << a[n];
+  ```
 
 * Ví dụ: Bài toán tìm số nguyên lớn nhất của một dãy số
   
@@ -17,7 +27,18 @@
   - Ta coi trạng thái thứ i sẽ là số nguyên lớn nhất của dãy số từ 1 -> i.
   - Vì vậy ta có công thức: f[i] = max(f[i-1], a[i]) (a[] là dãy số cho trước và f[] là mảng lưu kết quả)
 
-  ![image](https://user-images.githubusercontent.com/84316258/202840323-c06b7da1-cd3d-44b9-828d-bd94043ac4d8.png)
+  - Code: 
+    ```cpp
+    int n;
+    cin >> n;
+    int a[n + 1], f[n + 1];
+    f[0] = 0;
+    for (int i = 1; i <= n; i++) {
+      cin >> a[i];
+      f[i] = max(f[i - 1], a[i]);
+    }
+    cout << f[n];
+    ```
 
 ## Khi nào thì sử dụng quy hoạch động?
 * Đó là một câu hỏi rất khó trả lời. Không có một công thức nào cho các bài toán như vậy.
