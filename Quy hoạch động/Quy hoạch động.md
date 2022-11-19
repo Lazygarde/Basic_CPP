@@ -9,7 +9,7 @@
   - Số Fibonacci thứ n được tính bằng tổng của 2 số Fibonacci thứ n-1 và n-2
   - Vì vậy ta có mảng lưu kết quả là f[], f[i] = f[i-1] + f[i-2]
   - Code:
-  ```cpp
+    ```cpp
     int n;
     cin >> n;
     int a[n + 1];
@@ -19,7 +19,7 @@
       a[i] = a[i - 1] + a[i - 2];
     }
     cout << a[n];
-  ```
+    ```
 
 * Ví dụ: Bài toán tìm số nguyên lớn nhất của một dãy số
   
