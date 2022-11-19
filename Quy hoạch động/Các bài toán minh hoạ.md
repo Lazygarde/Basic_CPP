@@ -1,0 +1,157 @@
+# Bài 1
+[HISO - Hiệu số](http://ntucoder.net/Problem/Details/73)
+* Yêu cầu: Cho một dãy có n phần tử. Hãy tìm hai chỉ số i, j sao cho i < j và hiệu aj - ai là lớn nhất.
+* Phân tích bài toán:
+  - Cách 1: 
+    Duyệt tất cả các cặp (i, j) và tìm cặp có hiệu lớn nhất.
+    > Độ phức tạp O(n^2).
+  - Cách 2:
+    Duyệt từ trái qua phải và lưu lại giá trị nhỏ nhất hiện tại. Từ đó ta có thể tính được hiệu lớn nhất.
+    > Độ phức tạp O(n).
+* Chi tiết thuật toán:
+  |index| 1| 2|3|4|5|
+  |---|---|---|---|---|---|
+  |a|2|5|1|4|6|
+
+  - Với mỗi vị trí i, với cách thông thường là sẽ duyệt từ 1 đến i - 1 để tìm giá trị nhỏ nhất.
+  - Nhưng với cách 2 thì ta sẽ lưu giá trị nhỏ nhất sau mỗi lần duyệt. Từ đó ta có thể tính được hiệu lớn nhất.
+
+  |index| 1| 2|3|4|5|
+  |---|---|---|---|---|---|
+  |a|2|5|1|4|6|
+  |minVal|2|2|1|1|1|
+  |diff|0|3|4|3|5|
+
+  Vậy ta có thể thấy hiệu lớn nhất là 5.
+* Code:
+  ```cpp
+  int n;
+  cin >> n;
+  int a[n + 1], b[n + 1];
+  b[0] = 1e9;
+  int ans = 0;
+  for (int i = 1; i <= n; i++) {
+    cin >> a[i];
+    b[i] = min(b[i - 1], a[i]);
+    ans = max(ans, a[i] - b[i]);
+  }
+  cout << ans;
+  ```
+# Bài 2
+[DACO - Dãy con tăng dài nhất](http://ntucoder.net/Problem/Details/78)
+* Bài toán con: 
+  - Gọi f[] là mảng lưu kết quả.
+  - Coi f[i] là độ dài dãy con tăng dài nhất kết thúc tại i.
+
+    |index|1|2|3|4|5|6|
+    |---|---|---|---|---|---|---|
+    |a|1| 2| 5| 7| 6| 2|
+    |f|1| 2| 3| 3| 4| 2|
+* Chi tiết thuật toán:
+  - Duyệt từ 1 đến n, với mỗi i, duyệt từ 1 đến i-1, nếu a[j] < a[i] thì f[i] = max(f[i], f[j] + 1). Bởi vì nếu a[j] < a[i] thì ta có thể thêm a[i] vào dãy con tăng dài nhất kết thúc tại j để tạo thành dãy con tăng dài nhất kết thúc tại i.
+  - Độ phức tạp: O(n^2).
+  - Ví dụ 1 trạng thái:
+    Khi xét đến i = 5, ta duyệt lần lượt j từ 1 -> 4
+    - j = 1: 
+      > Dãy con tăng kết thúc tại 1: 1
+
+      a[1] < a[5] => Dãy con tăng kết thúc tại 5 có thể được tạo thành bằng cách thêm a[5] vào dãy con tăng dài nhất kết thúc tại 1 => f[5] = max(f[5], f[1] + 1) = max(1, 1 + 1) = 2.
+    - j = 2:
+      > Dãy con tăng kết thúc tại 2: 1 2
+
+      a[2] < a[5] => Dãy con tăng kết thúc tại 5 có thể được tạo thành bằng cách thêm a[5] vào dãy con tăng dài nhất kết thúc tại 2 => f[5] = max(f[5], f[2] + 1) = max(2, 2 + 1) = 3.
+    - j = 3:
+      > Dãy con tăng kết thúc tại 3: 1 2 5
+
+      a[3] < a[5] => Dãy con tăng kết thúc tại 5 có thể được tạo thành bằng cách thêm a[5] vào dãy con tăng dài nhất kết thúc tại 3 => f[5] = max(f[5], f[3] + 1) = max(3, 3 + 1) = 4.
+    - j = 4:
+      > Dãy con tăng kết thúc tại 4: 1 2 5 7
+
+      a[4] > a[5] => Không thể tạo thành dãy con tăng dài nhất kết thúc tại 5 bằng cách thêm a[5] vào dãy con tăng dài nhất kết thúc tại 4.
+  * Code:
+    ```cpp
+    int n;
+    cin >> n;
+    int a[n + 1], f[n + 1], ans = 1;
+    for (int i = 1; i <= n; i++)
+        cin >> a[i];
+    for (int i = 1; i <= n; i++)
+    {
+        f[i] = 1;
+        for (int j = 1; j < i; j++)
+        {
+            if (a[j] < a[i])
+            {
+                f[i] = max(f[i], f[j] + 1);
+            }
+        }
+        ans = max(ans, f[i]);
+    }
+    cout << ans;
+    ```
+* Mở rộng: Bài toán yêu cầu phải in ra dãy con tăng dài nhất bất kỳ.
+  - Ý tưởng: Ta sử dụng một mảng truy hồi để lưu lại vị trí của phần tử trước đó của dãy con tăng dài nhất kết thúc tại i.
+  - VD: 
+    |index|1|2|3|4|5|6|
+    |---|---|---|---|---|---|---|
+    |a|1| 2| 5| 7| 6| 2|
+    |f|1| 2| 3| 3| 4| 2|
+    |th(truy hồi)|0| 1| 2| 3| 3| 1|
+    
+    - Với mỗi th[i] = j, ta có thể tìm được dãy con tăng dài nhất kết thúc tại i bằng cách duyệt ngược từ i đến j, với mỗi j, ta duyệt ngược từ j đến th[j].
+
+    - Vì dãy con tăng dài nhất kết thúc tại 4 => Dãy truy hồi hiện tại: 6
+
+    - th[4] = 3 => Dãy truy hồi hiện tại: 6 - 5
+
+    - th[3] = 2 => Dãy truy hồi hiện tại: 6 - 5 - 2
+    - th[2] = 1 => Dãy truy hồi hiện tại: 6 - 5 - 2 - 1
+
+    > Vậy dãy con tăng dài nhất kết thúc tại 4 là: 1 2 5 6
+  - Code:
+    ```cpp
+    int n;
+    cin >> n;
+    int a[n + 1], b[n + 1], c[n + 1] = {}, ans = 0, p;
+    for (int i = 1; i <= n; i++)
+    {
+        cin >> a[i];
+    }
+    for (int i = 1; i <= n; i++)
+    {
+        b[i] = 1;
+        for (int j = 1; j < i; j++)
+        {
+            if (a[j] < a[i] && b[j] + 1 > b[i])
+            {
+                b[i] = b[j] + 1;
+                c[i] = j;
+            }
+        }
+        if (b[i] > ans)
+        {
+            ans = b[i];
+            p = i;
+        }
+    }
+    cout << ans << endl;
+    stack<int> s;
+    while (p)
+    {
+        s.push(a[p]);
+        p = c[p];
+    }
+    while (!s.empty())
+    {
+        cout << s.top() << " ";
+        s.pop();
+    }
+    ```
+# Bài 3
+[BANHCHUNG - Nấu bánh chưng](http://ntucoder.net/Problem/Details/5518)
+
+# Bài 4
+[Capxach - Cặp xách](http://ntucoder.net/Problem/Details/5568)
+
+# Bài 5
+[CATU2 - Cái túi 2](http://ntucoder.net/Problem/Details/1148)
